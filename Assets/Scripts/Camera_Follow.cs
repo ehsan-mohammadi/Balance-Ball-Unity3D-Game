@@ -14,8 +14,19 @@ public class Camera_Follow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
     {
-        transform.position = target.position - distance;
+        transform.position = Vector3.Lerp(transform.position, target.position - distance, 10.0f * Time.fixedDeltaTime);
+
+        if (Input.GetKey(KeyCode.Q)) // Rotate to left
+        {
+            transform.RotateAround(target.position, Vector3.up, -4);
+            distance = target.position - transform.position;
+        }
+        else if (Input.GetKey(KeyCode.E)) // Rotate to right
+        {
+            transform.RotateAround(target.position, Vector3.up, 4);
+            distance = target.position - transform.position;
+        }
 	}
 }
