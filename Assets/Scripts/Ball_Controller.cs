@@ -17,15 +17,15 @@ public class Ball_Controller : MonoBehaviour {
     {
         // Up or Down
         if (Input.GetKey(KeyCode.UpArrow))
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, speed));
+            GetComponent<Rigidbody>().AddForce(Camera.main.transform.parent.forward * speed);
         else if (Input.GetKey(KeyCode.DownArrow))
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -speed));
+            GetComponent<Rigidbody>().AddForce(Camera.main.transform.parent.forward * -speed);
 
         // Left or Right
         if (Input.GetKey(KeyCode.LeftArrow))
-            GetComponent<Rigidbody>().AddForce(new Vector3(-speed, 0, 0));
+            GetComponent<Rigidbody>().AddForce(Camera.main.transform.parent.right * -speed);
         else if (Input.GetKey(KeyCode.RightArrow))
-            GetComponent<Rigidbody>().AddForce(new Vector3(speed, 0, 0));
+            GetComponent<Rigidbody>().AddForce(Camera.main.transform.parent.right * speed);
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space))

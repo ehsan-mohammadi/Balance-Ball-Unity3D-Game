@@ -5,28 +5,27 @@ using UnityEngine;
 public class Camera_Follow : MonoBehaviour {
 
     public Transform target;
-    private Vector3 distance;
+    private Quaternion curRotation;
 
 	// Use this for initialization
 	void Start () 
     {
-        distance = target.position - transform.position;
+        curRotation = transform.rotation;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () 
     {
-        transform.position = Vector3.Lerp(transform.position, target.position - distance, 10.0f * Time.fixedDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, target.position, 10.0f * Time.fixedDeltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, curRotation, 0.125f);
 
         if (Input.GetKey(KeyCode.Q)) // Rotate to left
         {
-            transform.RotateAround(target.position, Vector3.up, -4);
-            distance = target.position - transform.position;
+            curRotation *= Quaternion.Euler(0, -4, 0);
         }
         else if (Input.GetKey(KeyCode.E)) // Rotate to right
         {
-            transform.RotateAround(target.position, Vector3.up, 4);
-            distance = target.position - transform.position;
+            curRotation *= Quaternion.Euler(0, 4, 0);
         }
 	}
 }
